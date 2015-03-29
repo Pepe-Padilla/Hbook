@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MXWLibrary.h"
+#import "MXWLibraryTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,17 +18,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+    
+    MXWLibrary* mLibray = [[MXWLibrary alloc] init];
+    
+    NSError * err = nil;
+    
+    if (![mLibray chargeLibrayWithError:&err])
+        NSLog(@"Error at charge Libray: %@", err.userInfo);
+    
+     MXWLibraryTableViewController* uVC = [[MXWLibraryTableViewController alloc] initWithLibray:mLibray
+                                                                                          style:UITableViewStylePlain];
     
     
-    //NSFileManager *fm = [NSFileManager defaultManager];
+    // Creo el combinador
+    UINavigationController * uNav = [UINavigationController new];
+    [uNav pushViewController:uVC animated:NO];
     
-    //NSArray * fmURL = [fm URLsForDirectory: NSCachesDirectory
-    //                             inDomains: NSUserDomainMask];
+    //uVC.delegate = uVC;
     
-    //NSURL * url = [fmURL lastObject];
-    
-    //url = [url URLByAppendingPathComponent:@"library.json"];
+    self.window.rootViewController = uNav;
     
     
     return YES;

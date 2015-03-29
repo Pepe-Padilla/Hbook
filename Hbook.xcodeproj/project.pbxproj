@@ -14,6 +14,7 @@
 		B17F23A61AC6D34C00984AF4 /* HbookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23A51AC6D34C00984AF4 /* HbookTests.m */; };
 		B17F23B11AC6D49D00984AF4 /* MXWBook.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23B01AC6D49D00984AF4 /* MXWBook.m */; };
 		B17F23B51AC6D9DB00984AF4 /* MXWLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */; };
+		B1981EED1AC86B4F004960DE /* MXWLibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1981EEC1AC86B4F004960DE /* MXWLibraryTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,8 @@
 		B17F23B01AC6D49D00984AF4 /* MXWBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWBook.m; sourceTree = "<group>"; };
 		B17F23B31AC6D9DB00984AF4 /* MXWLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWLibrary.h; sourceTree = "<group>"; };
 		B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWLibrary.m; sourceTree = "<group>"; };
+		B1981EEB1AC86B4F004960DE /* MXWLibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWLibraryTableViewController.h; sourceTree = "<group>"; };
+		B1981EEC1AC86B4F004960DE /* MXWLibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWLibraryTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,7 @@
 				B17F23981AC6D34C00984AF4 /* LaunchScreen.xib */,
 				B17F23891AC6D34C00984AF4 /* Supporting Files */,
 				B17F23B21AC6D4A200984AF4 /* Models */,
+				B1981EEE1AC86B5A004960DE /* Controllers */,
 			);
 			path = Hbook;
 			sourceTree = "<group>";
@@ -127,6 +131,15 @@
 				B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		B1981EEE1AC86B5A004960DE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B1981EEB1AC86B4F004960DE /* MXWLibraryTableViewController.h */,
+				B1981EEC1AC86B4F004960DE /* MXWLibraryTableViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +246,7 @@
 				B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */,
 				B17F23B11AC6D49D00984AF4 /* MXWBook.m in Sources */,
 				B17F238C1AC6D34C00984AF4 /* main.m in Sources */,
+				B1981EED1AC86B4F004960DE /* MXWLibraryTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +431,7 @@
 				B17F23AB1AC6D34C00984AF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B17F23AC1AC6D34C00984AF4 /* Build configuration list for PBXNativeTarget "HbookTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +440,7 @@
 				B17F23AE1AC6D34C00984AF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

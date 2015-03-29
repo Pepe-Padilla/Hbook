@@ -13,8 +13,12 @@
 
 @interface MXWLibrary()
 
+// Array de MXWBooks
 @property (strong,nonatomic) NSMutableArray * books;
+// Titulos ordenados Alfabeticamente
 @property (strong,nonatomic) NSArray * oTitles;
+
+// referencia ordenada a books para no duplicar libros
 @property (strong,nonatomic) NSMutableArray * titles;
 @property (strong,nonatomic) NSMutableArray * favorites;
 @property (strong,nonatomic) NSMutableDictionary * dTags;
