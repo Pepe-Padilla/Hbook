@@ -17,6 +17,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    //NSFileManager *fm = [NSFileManager defaultManager];
+    
+    //NSArray * fmURL = [fm URLsForDirectory: NSCachesDirectory
+    //                             inDomains: NSUserDomainMask];
+    
+    //NSURL * url = [fmURL lastObject];
+    
+    //url = [url URLByAppendingPathComponent:@"library.json"];
+    
+    
     return YES;
 }
 

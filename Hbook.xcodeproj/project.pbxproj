@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		B17F238C1AC6D34C00984AF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238B1AC6D34C00984AF4 /* main.m */; };
 		B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238E1AC6D34C00984AF4 /* AppDelegate.m */; };
-		B17F23921AC6D34C00984AF4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23911AC6D34C00984AF4 /* ViewController.m */; };
-		B17F23951AC6D34C00984AF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B17F23931AC6D34C00984AF4 /* Main.storyboard */; };
 		B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17F23961AC6D34C00984AF4 /* Images.xcassets */; };
 		B17F239A1AC6D34C00984AF4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B17F23981AC6D34C00984AF4 /* LaunchScreen.xib */; };
 		B17F23A61AC6D34C00984AF4 /* HbookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23A51AC6D34C00984AF4 /* HbookTests.m */; };
+		B17F23B11AC6D49D00984AF4 /* MXWBook.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23B01AC6D49D00984AF4 /* MXWBook.m */; };
+		B17F23B51AC6D9DB00984AF4 /* MXWLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +32,15 @@
 		B17F238B1AC6D34C00984AF4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B17F238D1AC6D34C00984AF4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B17F238E1AC6D34C00984AF4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B17F23901AC6D34C00984AF4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B17F23911AC6D34C00984AF4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B17F23941AC6D34C00984AF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B17F23961AC6D34C00984AF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B17F23991AC6D34C00984AF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B17F239F1AC6D34C00984AF4 /* HbookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HbookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17F23A41AC6D34C00984AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B17F23A51AC6D34C00984AF4 /* HbookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HbookTests.m; sourceTree = "<group>"; };
+		B17F23AF1AC6D49D00984AF4 /* MXWBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWBook.h; sourceTree = "<group>"; };
+		B17F23B01AC6D49D00984AF4 /* MXWBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWBook.m; sourceTree = "<group>"; };
+		B17F23B31AC6D9DB00984AF4 /* MXWLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWLibrary.h; sourceTree = "<group>"; };
+		B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWLibrary.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,12 +84,10 @@
 			children = (
 				B17F238D1AC6D34C00984AF4 /* AppDelegate.h */,
 				B17F238E1AC6D34C00984AF4 /* AppDelegate.m */,
-				B17F23901AC6D34C00984AF4 /* ViewController.h */,
-				B17F23911AC6D34C00984AF4 /* ViewController.m */,
-				B17F23931AC6D34C00984AF4 /* Main.storyboard */,
 				B17F23961AC6D34C00984AF4 /* Images.xcassets */,
 				B17F23981AC6D34C00984AF4 /* LaunchScreen.xib */,
 				B17F23891AC6D34C00984AF4 /* Supporting Files */,
+				B17F23B21AC6D4A200984AF4 /* Models */,
 			);
 			path = Hbook;
 			sourceTree = "<group>";
@@ -117,6 +116,17 @@
 				B17F23A41AC6D34C00984AF4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B17F23B21AC6D4A200984AF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B17F23AF1AC6D49D00984AF4 /* MXWBook.h */,
+				B17F23B01AC6D49D00984AF4 /* MXWBook.m */,
+				B17F23B31AC6D9DB00984AF4 /* MXWLibrary.h */,
+				B17F23B41AC6D9DB00984AF4 /* MXWLibrary.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +173,7 @@
 		B17F237E1AC6D34C00984AF4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MXW;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = maxeiware;
 				TargetAttributes = {
@@ -199,7 +210,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B17F23951AC6D34C00984AF4 /* Main.storyboard in Resources */,
 				B17F239A1AC6D34C00984AF4 /* LaunchScreen.xib in Resources */,
 				B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */,
 			);
@@ -219,8 +229,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B17F23921AC6D34C00984AF4 /* ViewController.m in Sources */,
+				B17F23B51AC6D9DB00984AF4 /* MXWLibrary.m in Sources */,
 				B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */,
+				B17F23B11AC6D49D00984AF4 /* MXWBook.m in Sources */,
 				B17F238C1AC6D34C00984AF4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,14 +255,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B17F23931AC6D34C00984AF4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B17F23941AC6D34C00984AF4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B17F23981AC6D34C00984AF4 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
