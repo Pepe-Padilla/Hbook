@@ -15,7 +15,7 @@
 - (id) initWithTitle: (NSString*) title
              authors: (NSArray*) authors
                 tags: (NSArray*) tags
-             bookURL: (NSURL*) bookURL
+            coverURL: (NSURL*) coverURL
               pdfURL: (NSURL*) pdfURL
             favorite: (BOOL)favorite{
     
@@ -23,7 +23,7 @@
         _title = title;
         _authors = authors;
         _tags = tags;
-        _bookURL = bookURL;
+        _coverURL = coverURL;
         _pdfURL = pdfURL;
         _favorite = favorite;
     }

@@ -13,7 +13,7 @@
 @property (copy,nonatomic)  NSString * title;
 @property (strong,nonatomic) NSArray * authors;
 @property (strong,nonatomic) NSArray * tags;
-@property (strong,nonatomic) NSURL * bookURL;
+@property (strong,nonatomic) NSURL * coverURL;
 @property (strong,nonatomic) NSURL * pdfURL;
 @property (nonatomic) BOOL  favorite;
 
@@ -22,7 +22,7 @@
 - (id) initWithTitle: (NSString*) title
              authors: (NSArray*) authors
                 tags: (NSArray*) tags
-             bookURL: (NSURL*) bookURL
+            coverURL: (NSURL*) coverURL
               pdfURL: (NSURL*) pdfURL
             favorite: (BOOL) favorite;
 

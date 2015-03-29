@@ -13,10 +13,12 @@
 
 @interface MXWLibrary()
 
-@property (strong,nonatomic) NSArray * books;
-@property (strong,nonatomic) NSArray * favorites;
-@property (strong,nonatomic) NSDictionary * dTags;
-@property (strong,nonatomic) NSDictionary * dAuthors;
+@property (strong,nonatomic) NSMutableArray * books;
+@property (strong,nonatomic) NSArray * oTitles;
+@property (strong,nonatomic) NSMutableArray * titles;
+@property (strong,nonatomic) NSMutableArray * favorites;
+@property (strong,nonatomic) NSMutableDictionary * dTags;
+@property (strong,nonatomic) NSMutableDictionary * dAuthors;
 
 @end
 
@@ -28,6 +30,7 @@
     if (self = [super init]) {
         _books = nil;
         _favorites = nil;
+        _titles = nil;
         _dTags = nil;
         _dAuthors = nil;
     }
@@ -101,17 +104,15 @@
     
     
     // trabajamos con el JSON
-    NSDictionary *jsonDictionary = nil;
-    NSArray *jsonArray = nil;
-    
     if([jsonResults isKindOfClass:[NSDictionary class]]) {
         
-        jsonDictionary = jsonResults;
-        [self setBooksWithDictionary: jsonDictionary];
+        [self manageBooksWithDictionary:jsonResults
+                      usingUserDefaults:defaults];
     
     } else if([jsonResults isKindOfClass:[NSArray class]]) {
         
-        jsonArray = jsonResults;
+        [self manageBooksWithArray:jsonResults
+                 usingUserDafaults:defaults];
         
         
     } else {
@@ -125,7 +126,56 @@
         return NO;
     }
     
+    // Establecemos elementos de la biblioteca
+    [self orderElements];
+    
     return YES;
+}
+
+- (void) orderElements{
+    NSMutableDictionary *dTitles = nil;
+    for (int i = 0; i<self.books.count; i++) {
+        [dTitles addEntriesFromDictionary:@{[[self.books objectAtIndex:i] title]:@(i)}];
+    }
+    
+    self.oTitles = [dTitles keysSortedByValueUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    for (id element in self.oTitles) {
+        long j = [[dTitles objectForKey:element] longValue];
+        MXWBook * b = [self.books objectAtIndex:j];
+        
+        // metemos los apuntadores en cada grupo
+        [self.titles addObject:@(j)];
+        
+        if (b.favorite) {
+            [self.favorites addObject:@(j)];
+        }
+        
+        for (id idA in b.authors){
+            NSArray * arr = [self.dAuthors objectForKey:idA];
+            if (arr) {
+                [self.dAuthors setObject:[arr arrayByAddingObject:@(j)]
+                                  forKey:idA];
+            } else {
+                [self.dAuthors setObject:@[@(j)]
+                                  forKey:idA];
+            }
+            
+        }
+        
+        for (id idA in b.tags){
+            NSArray * arr = [self.dTags objectForKey:idA];
+            if (arr) {
+                [self.dTags setObject:[arr arrayByAddingObject:@(j)]
+                                  forKey:idA];
+            } else {
+                [self.dTags setObject:@[@(j)]
+                                  forKey:idA];
+            }
+            
+        }
+        
+    }
 }
 
 - (NSDate*)dateDefaultMangerWithUserDefaults:(NSUserDefaults*) defaults andKey:(NSString*)key{
@@ -141,6 +191,23 @@
     }
     
     return aDate;
+}
+
+- (id)defaultMangerWithUserDefaults:(NSUserDefaults*) defaults
+                andNewValIfNotExist:(id)newVal
+                             andKey:(NSString*)key{
+    
+    id anId=[defaults objectForKey:key];
+    
+    if (!anId) {
+        // Si no hay nada, lo añadimos
+        anId = newVal;
+        [defaults setObject:anId
+                     forKey:key];
+        [defaults synchronize];
+    }
+    
+    return anId;
 }
 
 - (NSString*) getFromRepositoryWithError:(NSError**)error{
@@ -207,74 +274,187 @@
     return rc;
 }
 
-- (void) setBooksWithArray:(NSArray*) jArray {
+- (void) manageBooksWithArray:(NSArray*) jArray
+            usingUserDafaults:(NSUserDefaults*) defaults{
     for (id object in jArray) {
-        [self setBooksWithDictionary:object];
+        [self manageBooksWithDictionary:object
+                      usingUserDefaults:defaults];
     }
 }
 
-- (void) setBooksWithDictionary:(NSDictionary*) jDictionary {
+- (void) manageBooksWithDictionary:(NSDictionary*) jDictionary
+                 usingUserDefaults:(NSUserDefaults*) defaults{
+    NSString * title= [jDictionary objectForKey:@"title"];
+    NSString * authors= [jDictionary objectForKey:@"authors"];
+    NSString * tags= [jDictionary objectForKey:@"tags"];
+    
+    NSURL * coverURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"image_url"]];
+    NSURL * pdfURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"pdf_url"]];
+    
+    NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:coverURL
+                                                         andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@%@",title,[coverURL pathExtension]]];
+    
+    NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:pdfURL
+                                                        andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@%@",title,[pdfURL pathExtension]]];
+    
+    BOOL favorite = NO;
+    
+    NSArray * aAuthors = [authors componentsSeparatedByString:@", "];
+    NSArray * aTags = [tags componentsSeparatedByString:@", "];
+    
+    NSString * sfavorite= [self defaultMangerWithUserDefaults:defaults
+                                          andNewValIfNotExist:@"NO"
+                                                       andKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",title]];
+    
+    favorite = [sfavorite isEqualToString:@"YES"];
+    
+    MXWBook * book = [[MXWBook alloc] initWithTitle:title
+                                            authors:aAuthors
+                                               tags:aTags
+                                           coverURL:localCoverURL
+                                             pdfURL:localPdfURL
+                                           favorite:favorite];
+    
+    [self.books addObject:book];
     
 }
 
-
+- (NSURL*) setAndGetURLFromSandboxWithExternalURL:(NSURL*) aURL
+                                   andElementName:(NSString*) element {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSArray * fmURL = [fm URLsForDirectory: NSCachesDirectory
+                                 inDomains: NSUserDomainMask];
+    
+    NSURL * urlF = [fmURL lastObject];
+    
+    urlF = [urlF URLByAppendingPathComponent:element];
+    
+    NSData * eData= [NSData dataWithContentsOfURL:urlF];
+    
+    if (eData == nil) {
+        eData = [NSData dataWithContentsOfURL:aURL];
+        [eData writeToURL:urlF
+               atomically:YES];
+    }
+    
+    return urlF;
+}
 
 #pragma mark - count functions
 // functions for count
 - (NSUInteger) countBooksForFavorites{
-    return 0;
+    return self.favorites.count;
 }
 
 - (NSUInteger) countBooksForTitles{
-    return 0;
+    return self.titles.count;
 }
 
 - (NSUInteger) countBooksForTags:(NSString*) tag{
-    return 0;
+    return [[self.dTags objectForKey:tag] count];
 }
 
 - (NSUInteger) countBooksForAuthors:(NSString*) author{
-    return 0;
+    return [[self.dAuthors objectForKey:author] count];
 }
 
 #pragma mark - groups functions
 // functions groups
 - (NSArray*) getTags{
-    return nil;
+    return [self.dTags allKeys];
 }
 
 - (NSArray*) getAuthors{
-    return nil;
+    return [self.dAuthors allKeys];
 }
 
 
 #pragma mark - get Books functions
 // functions get books
 - (MXWBook*) bookForFavoritesAtIndex:(NSUInteger) i{
-    return nil;
+    id idIndex = [self.favorites objectAtIndex:i];
+    
+    NSInteger index = [idIndex integerValue];
+    
+    MXWBook * b = [self.books objectAtIndex:index];
+    
+    return b;
 }
 
 - (MXWBook*) bookForTitlesAtIndex:(NSUInteger) i{
-    return nil;
+    id idIndex = [self.titles objectAtIndex:i];
+    
+    NSInteger index = [idIndex integerValue];
+    
+    MXWBook * b = [self.books objectAtIndex:index];
+    
+    return b;
 }
 
 - (MXWBook*) bookForTag:(NSString*) tag AtIndex:(NSUInteger) i{
-    return nil;
+    id idIndex = [[self.dTags objectForKey:tag] objectAtIndex:i];
+    
+    NSInteger index = [idIndex integerValue];
+    
+    MXWBook * b = [self.books objectAtIndex:index];
+    
+    return b;
 }
 
 - (MXWBook*) bookForAuthor:(NSString*) author AtIndex:(NSUInteger) i{
-    return nil;
+    id idIndex = [[self.dAuthors objectForKey:author] objectAtIndex:i];
+    
+    NSInteger index = [idIndex integerValue];
+    
+    MXWBook * b = [self.books objectAtIndex:index];
+    
+    return b;
 }
 
 
 #pragma mark - set Favorite functions
 // functions to set favorites
 - (void) markBookAsFavoriteWithBook: (MXWBook*) book{
+    if (!book.favorite){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"YES"
+                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",book.title]];
+        [defaults synchronize];
+        
+        book.favorite = YES;
+    }
     
+    [self orderFavorites];
 }
 
 - (void) markBookAsNotFavoriteWithBook: (MXWBook*) book{
+    if (book.favorite){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"NO"
+                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",book.title]];
+        [defaults synchronize];
+        
+        book.favorite = NO;
+    }
     
+    [self orderFavorites];
+}
+
+- (void) orderFavorites{
+    NSMutableDictionary *dTitles = nil;
+    for (int i = 0; i<self.books.count; i++) {
+        [dTitles addEntriesFromDictionary:@{[[self.books objectAtIndex:i] title]:@(i)}];
+    }
+    
+    for (id element in self.oTitles) {
+        long j = [[dTitles objectForKey:element] longValue];
+        MXWBook * b = [self.books objectAtIndex:j];
+        
+        if (b.favorite) {
+            [self.favorites addObject:@(j)];
+        }
+    }
 }
 
 @end
