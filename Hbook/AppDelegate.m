@@ -18,7 +18,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+    
     
     MXWLibrary* mLibray = [[MXWLibrary alloc] init];
     
@@ -31,6 +31,8 @@
                                                                                           style:UITableViewStylePlain];
     
     
+    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+    
     // Creo el combinador
     UINavigationController * uNav = [UINavigationController new];
     [uNav pushViewController:uVC animated:NO];
@@ -38,7 +40,7 @@
     //uVC.delegate = uVC;
     
     self.window.rootViewController = uNav;
-    
+    [[self window] makeKeyAndVisible];
     
     return YES;
 }

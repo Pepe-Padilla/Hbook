@@ -215,7 +215,7 @@
 }
 
 - (NSString*) getFromRepositoryWithError:(NSError**)error{
-    NSURL * urlJ=[NSURL URLWithString:@""];
+    NSURL * urlJ=[NSURL URLWithString:@"/Users/Pepe/Desktop/KeepCodingMaster/Git/Practicagit/Ejecicio1/books_readable.json"];
     NSError *err= nil;
     NSString * strJson= [NSString stringWithContentsOfURL:urlJ
                                                  encoding:NSUTF8StringEncoding
