@@ -47,8 +47,11 @@
         
         self.pdfSanbox = YES;
         
-        return [self setAndGetURLFromSandboxWithExternalURL:self.pdfURL
+        _pdfURL = [self setAndGetURLFromSandboxWithExternalURL:self.pdfURL
                                              andElementName:sPDF];
+        
+        return _pdfURL;
+        
     } else return _pdfURL;
 }
 
@@ -81,13 +84,11 @@
     
     urlF = [urlF URLByAppendingPathComponent:element];
     
-    //NSData * eData= [NSData dataWithContentsOfURL:urlF];
-    
-    BOOL exist = [fm fileExistsAtPath:[urlF absoluteString]];
+    BOOL exist = [fm fileExistsAtPath:[urlF path]];
     
     if (!exist) {
         //UIImage * anImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:aURL]];
-        [fm createFileAtPath:[urlF absoluteString]
+        [fm createFileAtPath:[urlF path]
                     contents:[NSData dataWithContentsOfURL:aURL]
                   attributes:nil];
     }
