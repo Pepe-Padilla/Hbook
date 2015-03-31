@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 maxeiware. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
 @interface MXWBook : NSObject
 
@@ -26,5 +27,6 @@
               pdfURL: (NSURL*) pdfURL
             favorite: (BOOL) favorite;
 
+- (void) manageURLS;
 
 @end

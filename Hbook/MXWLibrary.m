@@ -55,7 +55,7 @@
     NSDate * lastRun = [self dateDefaultMangerWithUserDefaults:defaults
                                                         andKey:@"lastRun"];
     
-    NSTimeInterval secondsBetewen = [lastRun timeIntervalSinceDate:[NSDate date]];
+    NSTimeInterval secondsBetewen = [[NSDate date] timeIntervalSinceDate:lastRun];
     
     if (secondsBetewen < 86400) {
         needRecharge = NO;
@@ -139,12 +139,24 @@
 }
 
 - (void) orderElements{
-    NSMutableDictionary *dTitles = nil;
+    NSMutableDictionary *dTitles = [[NSMutableDictionary alloc] init];
     for (int i = 0; i<self.books.count; i++) {
         [dTitles addEntriesFromDictionary:@{[[self.books objectAtIndex:i] title]:@(i)}];
     }
     
-    self.oTitles = [dTitles keysSortedByValueUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.oTitles = [dTitles keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        
+        if ([obj1 stringValue] > [obj2 stringValue]) {
+            
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        else  if ([obj1 stringValue] < [obj2 stringValue]) {
+            
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
     
     for (id element in self.oTitles) {
         long j = [[dTitles objectForKey:element] longValue];
@@ -297,11 +309,11 @@
     NSURL * coverURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"image_url"]];
     NSURL * pdfURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"pdf_url"]];
     
-    NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:coverURL
-                                                         andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@.%@",title,[coverURL pathExtension]]];
+    //NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:coverURL
+    //                                                     andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@.%@",title,[coverURL pathExtension]]];
     
-    NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:pdfURL
-                                                        andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@.%@",title,[pdfURL pathExtension]]];
+    //NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:pdfURL
+    //                                                    andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@.%@",title,[pdfURL pathExtension]]];
     
     BOOL favorite = NO;
     
@@ -317,9 +329,10 @@
     MXWBook * book = [[MXWBook alloc] initWithTitle:title
                                             authors:aAuthors
                                                tags:aTags
-                                           coverURL:localCoverURL
-                                             pdfURL:localPdfURL
+                                           coverURL:coverURL
+                                             pdfURL:pdfURL
                                            favorite:favorite];
+    [book manageURLS];
     
     [self.books addObject:book];
     

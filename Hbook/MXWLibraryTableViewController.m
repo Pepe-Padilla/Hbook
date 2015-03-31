@@ -40,9 +40,9 @@
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     if (section == FAVORITE_SECTION) {
-        return @"Favorites";
+        return [NSString stringWithFormat:@"Favorites (%@)",[self.library countBooksForFavorites]];
     } else {
-        return [self.tags objectAtIndex:section+1];
+        return [self.tags objectAtIndex:section-1];
     }
     
 }
@@ -57,7 +57,7 @@
     if (section == FAVORITE_SECTION) {
         return [self.library countBooksForFavorites];
     } else {
-        return [self.library countBooksForTags:[self.tags objectAtIndex:section+1]];
+        return [self.library countBooksForTags:[self.tags objectAtIndex:section-1]];
     }
 }
 
@@ -69,7 +69,7 @@
     if (indexPath.section == FAVORITE_SECTION) {
         aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
     } else {
-        aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section+1]
+        aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section-1]
                                  AtIndex:indexPath.row];
     }
     
