@@ -40,7 +40,8 @@
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     if (section == FAVORITE_SECTION) {
-        return [NSString stringWithFormat:@"Favorites (%@)",[self.library countBooksForFavorites]];
+        NSString * aint= [@([self.library countBooksForFavorites]) stringValue];
+        return [NSString stringWithFormat:@"Favorites (%@)",aint];
     } else {
         return [self.tags objectAtIndex:section-1];
     }

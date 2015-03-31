@@ -144,19 +144,20 @@
         [dTitles addEntriesFromDictionary:@{[[self.books objectAtIndex:i] title]:@(i)}];
     }
     
-    self.oTitles = [dTitles keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-        
-        if ([obj1 stringValue] > [obj2 stringValue]) {
-            
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        else  if ([obj1 stringValue] < [obj2 stringValue]) {
-            
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
+    self.oTitles = [[dTitles allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    //self.oTitles = [dTitles keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+    //
+    //    if ([obj1 stringValue] > [obj2 stringValue]) {
+    //
+    //        return (NSComparisonResult)NSOrderedDescending;
+    //    }
+    //    else  if ([obj1 stringValue] < [obj2 stringValue]) {
+    //
+    //        return (NSComparisonResult)NSOrderedAscending;
+    //    }
+    //
+    //    return (NSComparisonResult)NSOrderedSame;
+    //}];
     
     for (id element in self.oTitles) {
         long j = [[dTitles objectForKey:element] longValue];
@@ -302,12 +303,17 @@
 
 - (void) manageBooksWithDictionary:(NSDictionary*) jDictionary
                  usingUserDefaults:(NSUserDefaults*) defaults{
-    NSString * title= [jDictionary objectForKey:@"title"];
-    NSString * authors= [jDictionary objectForKey:@"authors"];
-    NSString * tags= [jDictionary objectForKey:@"tags"];
+    NSString * title= [[jDictionary objectForKey:@"title"]
+                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * authors= [[jDictionary objectForKey:@"authors"]
+                         stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * tags= [[jDictionary objectForKey:@"tags"]
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSURL * coverURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"image_url"]];
-    NSURL * pdfURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"pdf_url"]];
+    NSURL * coverURL= [[NSURL alloc] initWithString:[[jDictionary objectForKey:@"image_url"]
+                                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSURL * pdfURL= [[NSURL alloc] initWithString:[[jDictionary objectForKey:@"pdf_url"]
+                                                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
     //NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:coverURL
     //                                                     andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@.%@",title,[coverURL pathExtension]]];
@@ -381,11 +387,11 @@
 #pragma mark - groups functions
 // functions groups
 - (NSArray*) getTags{
-    return [self.dTags allKeys];
+    return [[self.dTags allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (NSArray*) getAuthors{
-    return [self.dAuthors allKeys];
+    return [[self.dAuthors allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 
