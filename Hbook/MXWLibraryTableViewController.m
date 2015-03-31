@@ -9,6 +9,7 @@
 #import "MXWLibraryTableViewController.h"
 #import "MXWLibrary.h"
 #import "MXWBook.h"
+#import "MXWBookViewController.h"
 
 @interface MXWLibraryTableViewController ()
 
@@ -24,6 +25,7 @@
     if (self = [super initWithStyle:style]) {
         _library = library;
         _tags = [library getTags];
+        self.title = @"Favorite / Tags";
     }
     
     return self;
@@ -53,7 +55,8 @@
     return self.tags.count + 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (section == FAVORITE_SECTION) {
         return [self.library countBooksForFavorites];
@@ -62,7 +65,58 @@
     }
 }
 
--(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MXWBook * aBook;
+    
+    if (indexPath.section == FAVORITE_SECTION) {
+        aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
+    } else {
+        aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 1]
+                                 AtIndex:indexPath.row];
+    }
+    
+    // crar el bookVC
+    MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+    
+    //Hacer un push
+    [self.navigationController pushViewController:bVC animated:YES];
+    
+    //MXWStarWarsCharacter * character;
+    //if (indexPath.section == IMPERIAL_SECTION) {
+    //    character = [self.model imperialAtIndex:indexPath.row];
+    //} else {
+    //    character = [self.model rebelAtIndex:indexPath.row];
+    //}
+    //
+    //// Avisar al delegado
+    //if ([self.delegate respondsToSelector:@selector(universeTableViewController:didSelectCharacter:)]) {
+    //    [self.delegate universeTableViewController:self
+    //                            didSelectCharacter:character];
+    //}
+    //
+    //
+    //// mandamos una notificación
+    //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    //
+    //NSDictionary * dict = @{CHARACTER_KEY : character};
+    //NSNotification * n = [NSNotification notificationWithName:CHARACTER_DID_CHANGE_NOTIFICATION
+    //                                                   object:self
+    //                                                 userInfo:dict];
+    //[nc postNotification:n];
+    //
+    //NSArray * coords = @[ @(indexPath.section), @(indexPath.row)];
+    //
+    //NSUserDefaults *  def = [NSUserDefaults standardUserDefaults];
+    //[def setObject:coords
+    //        forKey:LAST_SELECTED_CHARACTER];
+    //
+    //[def synchronize];
+    
+}
+
+-(UITableViewCell*) tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //Averiguar modelo
     MXWBook * aBook = nil;

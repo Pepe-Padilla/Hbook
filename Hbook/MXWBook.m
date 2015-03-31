@@ -10,7 +10,6 @@
 
 @interface MXWBook ()
 
-@property (nonatomic) BOOL pdfSanbox;
 
 @end
 

@@ -17,6 +17,8 @@
 @property (strong,nonatomic) NSURL * coverURL;
 @property (strong,nonatomic) NSURL * pdfURL;
 @property (nonatomic) BOOL  favorite;
+@property (nonatomic) BOOL pdfSanbox;
+
 
 
 // inicializador

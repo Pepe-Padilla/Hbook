@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B157E5D71ACB3C1F004E0E8C /* MXWBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B157E5D51ACB3C1F004E0E8C /* MXWBookViewController.m */; };
+		B157E5D81ACB3C1F004E0E8C /* MXWBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */; };
+		B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D91ACB4D48004E0E8C /* starOff.png */; };
+		B157E5DC1ACB4D48004E0E8C /* starOn.png in Resources */ = {isa = PBXBuildFile; fileRef = B157E5DA1ACB4D48004E0E8C /* starOn.png */; };
 		B17F238C1AC6D34C00984AF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238B1AC6D34C00984AF4 /* main.m */; };
 		B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238E1AC6D34C00984AF4 /* AppDelegate.m */; };
 		B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17F23961AC6D34C00984AF4 /* Images.xcassets */; };
@@ -28,6 +32,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B157E5D41ACB3C1F004E0E8C /* MXWBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWBookViewController.h; sourceTree = "<group>"; };
+		B157E5D51ACB3C1F004E0E8C /* MXWBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWBookViewController.m; sourceTree = "<group>"; };
+		B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXWBookViewController.xib; sourceTree = "<group>"; };
+		B157E5D91ACB4D48004E0E8C /* starOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starOff.png; sourceTree = "<group>"; };
+		B157E5DA1ACB4D48004E0E8C /* starOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starOn.png; sourceTree = "<group>"; };
 		B166EE841AC9FC4C003CC67D /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B17F23861AC6D34C00984AF4 /* Hbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17F238A1AC6D34C00984AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +74,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B157E5DD1ACB4D52004E0E8C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B157E5D91ACB4D48004E0E8C /* starOff.png */,
+				B157E5DA1ACB4D48004E0E8C /* starOn.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		B17F237D1AC6D34C00984AF4 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +107,7 @@
 				B17F238D1AC6D34C00984AF4 /* AppDelegate.h */,
 				B17F238E1AC6D34C00984AF4 /* AppDelegate.m */,
 				B17F23961AC6D34C00984AF4 /* Images.xcassets */,
+				B157E5DD1ACB4D52004E0E8C /* Images */,
 				B17F23981AC6D34C00984AF4 /* LaunchScreen.xib */,
 				B17F23891AC6D34C00984AF4 /* Supporting Files */,
 				B17F23B21AC6D4A200984AF4 /* Models */,
@@ -140,6 +159,9 @@
 			children = (
 				B1981EEB1AC86B4F004960DE /* MXWLibraryTableViewController.h */,
 				B1981EEC1AC86B4F004960DE /* MXWLibraryTableViewController.m */,
+				B157E5D41ACB3C1F004E0E8C /* MXWBookViewController.h */,
+				B157E5D51ACB3C1F004E0E8C /* MXWBookViewController.m */,
+				B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -226,7 +248,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B17F239A1AC6D34C00984AF4 /* LaunchScreen.xib in Resources */,
+				B157E5D81ACB3C1F004E0E8C /* MXWBookViewController.xib in Resources */,
 				B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */,
+				B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */,
+				B157E5DC1ACB4D48004E0E8C /* starOn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +273,7 @@
 				B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */,
 				B17F23B11AC6D49D00984AF4 /* MXWBook.m in Sources */,
 				B17F238C1AC6D34C00984AF4 /* main.m in Sources */,
+				B157E5D71ACB3C1F004E0E8C /* MXWBookViewController.m in Sources */,
 				B1981EED1AC86B4F004960DE /* MXWLibraryTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
