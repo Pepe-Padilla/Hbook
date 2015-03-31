@@ -8,6 +8,7 @@
 
 #import "MXWLibrary.h"
 #import "MXWBook.h"
+#import "Header.h"
 
 
 
@@ -32,11 +33,12 @@
 - (id) init {
     
     if (self = [super init]) {
-        _books = nil;
-        _favorites = nil;
-        _titles = nil;
-        _dTags = nil;
-        _dAuthors = nil;
+        _books = [[NSMutableArray alloc] init];
+        _favorites = [[NSMutableArray alloc] init];
+        _titles = [[NSMutableArray alloc] init];
+        _dTags = [[NSMutableDictionary alloc] init];
+        _dAuthors = [[NSMutableDictionary alloc] init];
+        _oTitles = [[NSArray alloc] init];
     }
     
     return self;
@@ -215,7 +217,7 @@
 }
 
 - (NSString*) getFromRepositoryWithError:(NSError**)error{
-    NSURL * urlJ=[NSURL URLWithString:@"/Users/Pepe/Desktop/KeepCodingMaster/Git/Practicagit/Ejecicio1/books_readable.json"];
+    NSURL * urlJ=[NSURL URLWithString:@REPO_URL];
     NSError *err= nil;
     NSString * strJson= [NSString stringWithContentsOfURL:urlJ
                                                  encoding:NSUTF8StringEncoding
@@ -296,10 +298,10 @@
     NSURL * pdfURL= [[NSURL alloc] initWithString:[jDictionary objectForKey:@"pdf_url"]];
     
     NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:coverURL
-                                                         andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@%@",title,[coverURL pathExtension]]];
+                                                         andElementName:[NSString stringWithFormat:@"MXWbook_cover_%@.%@",title,[coverURL pathExtension]]];
     
     NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:pdfURL
-                                                        andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@%@",title,[pdfURL pathExtension]]];
+                                                        andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@.%@",title,[pdfURL pathExtension]]];
     
     BOOL favorite = NO;
     
@@ -334,10 +336,10 @@
     
     urlF = [urlF URLByAppendingPathComponent:element];
     
-    NSData * eData= [NSData dataWithContentsOfURL:urlF];
+    //NSData * eData= [NSData dataWithContentsOfURL:urlF];
     
-    if (eData == nil) {
-        eData = [NSData dataWithContentsOfURL:aURL];
+    if (![fm fileExistsAtPath:[urlF absoluteString]]) {
+        NSData * eData = [NSData dataWithContentsOfURL:aURL];
         [eData writeToURL:urlF
                atomically:YES];
     }

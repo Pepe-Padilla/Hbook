@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B166EE841AC9FC4C003CC67D /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B17F23861AC6D34C00984AF4 /* Hbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17F238A1AC6D34C00984AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B17F238B1AC6D34C00984AF4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 			children = (
 				B17F238A1AC6D34C00984AF4 /* Info.plist */,
 				B17F238B1AC6D34C00984AF4 /* main.m */,
+				B166EE841AC9FC4C003CC67D /* Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
