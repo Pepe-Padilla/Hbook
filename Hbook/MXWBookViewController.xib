@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MXWBookViewController">
             <connections>
+                <outlet property="activityView" destination="CAN-i2-nxy" id="wGg-J3-Cns"/>
                 <outlet property="authorsLabel" destination="m3f-oP-dRY" id="Lyh-4X-iQA"/>
                 <outlet property="favoriteS" destination="XI1-LR-gpy" id="txY-1r-ZVc"/>
                 <outlet property="pdfB" destination="s5f-gY-rqv" id="Rmg-sz-BQw"/>
@@ -59,6 +60,10 @@
                     <color key="textColor" red="0.66950757575757569" green="0.079287762611170279" blue="0.052464383525385003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="CAN-i2-nxy">
+                    <rect key="frame" x="374" y="502" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="s5f-gY-rqv">
                     <rect key="frame" x="688" y="54" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>

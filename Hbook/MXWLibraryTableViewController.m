@@ -76,42 +76,20 @@
                                  AtIndex:indexPath.row];
     }
     
+    /* obsoleto (ahora con delegados):
     // crar el bookVC
-    MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+    //MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
     
     //Hacer un push
-    [self.navigationController pushViewController:bVC animated:YES];
+    //[self.navigationController pushViewController:bVC animated:YES];
+    */
     
-    //MXWStarWarsCharacter * character;
-    //if (indexPath.section == IMPERIAL_SECTION) {
-    //    character = [self.model imperialAtIndex:indexPath.row];
-    //} else {
-    //    character = [self.model rebelAtIndex:indexPath.row];
-    //}
-    //
-    //// Avisar al delegado
-    //if ([self.delegate respondsToSelector:@selector(universeTableViewController:didSelectCharacter:)]) {
-    //    [self.delegate universeTableViewController:self
-    //                            didSelectCharacter:character];
-    //}
-    //
-    //
-    //// mandamos una notificación
-    //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    //
-    //NSDictionary * dict = @{CHARACTER_KEY : character};
-    //NSNotification * n = [NSNotification notificationWithName:CHARACTER_DID_CHANGE_NOTIFICATION
-    //                                                   object:self
-    //                                                 userInfo:dict];
-    //[nc postNotification:n];
-    //
-    //NSArray * coords = @[ @(indexPath.section), @(indexPath.row)];
-    //
-    //NSUserDefaults *  def = [NSUserDefaults standardUserDefaults];
-    //[def setObject:coords
-    //        forKey:LAST_SELECTED_CHARACTER];
-    //
-    //[def synchronize];
+    
+    // Avisar al delegado
+    if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectBook:)]) {
+        [self.delegate libraryTableViewController:self
+                                    didSelectBook:aBook];
+    }
     
 }
 
@@ -147,6 +125,15 @@
     
     //Devolver la celda
     return cell;
+}
+
+-(void) libraryTableViewController: (MXWLibraryTableViewController *) lVC
+                     didSelectBook: (MXWBook *) aBook{
+    
+    MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+    
+    [self.navigationController pushViewController:bVC animated:YES];
+    
 }
 
 @end

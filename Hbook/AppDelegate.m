@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "MXWLibrary.h"
 #import "MXWLibraryTableViewController.h"
+#import "MXWBookViewController.h"
+#import "MXWBook.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +19,8 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)            application:(UIApplication *)application
+  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
     MXWLibrary* mLibray = [[MXWLibrary alloc] init];
@@ -26,24 +29,72 @@
     
     if (![mLibray chargeLibrayWithError:&err])
         NSLog(@"Error at charge Libray: %@", err.userInfo);
-    
-     MXWLibraryTableViewController* uVC = [[MXWLibraryTableViewController alloc] initWithLibray:mLibray
-                                                                                          style:UITableViewStylePlain];
-    
-    
     [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+
     
-    // Creo el combinador
-    UINavigationController * uNav = [UINavigationController new];
-    [uNav pushViewController:uVC animated:NO];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self configureForPad:mLibray];
+    } else {
+        [self configureForPhone:mLibray];
+    }
     
-    //uVC.delegate = uVC;
     
-    self.window.rootViewController = uNav;
+    
     [[self window] makeKeyAndVisible];
     
     return YES;
 }
+
+-(void) configureForPad:(MXWLibrary*)libray{
+    // creamos un controlador
+    MXWLibraryTableViewController * lVC = [[MXWLibraryTableViewController  alloc]
+                                           initWithLibray:libray style: UITableViewStylePlain];
+    
+    
+    MXWBook* aBook = nil;
+    
+    
+    if (libray.countBooksForFavorites > 0) {
+        aBook = [libray bookForFavoritesAtIndex:0];
+    } else {
+        aBook = [libray bookForTag:[libray.getTags objectAtIndex:0] AtIndex:0];
+    }
+    
+    
+    MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+    
+    
+    
+    // Creo el combinador
+    UINavigationController * lNav = [UINavigationController new];
+    [lNav pushViewController:lVC animated:NO];
+    
+    UINavigationController * bNav = [UINavigationController new];
+    [bNav pushViewController:bVC animated:NO];
+    
+    UISplitViewController * spVC = [UISplitViewController new];
+    spVC.viewControllers = @[lNav,bNav];
+    
+    spVC.delegate=bVC;
+    lVC.delegate=bVC;
+    
+    
+    self.window.rootViewController = spVC;
+}
+
+-(void) configureForPhone:(MXWLibrary*)libray{
+    MXWLibraryTableViewController* lVC = [[MXWLibraryTableViewController alloc]
+                                          initWithLibray:libray
+                                          style:UITableViewStylePlain];
+    // Creo el combinador
+    UINavigationController * lNav = [UINavigationController new];
+    [lNav pushViewController:lVC animated:NO];
+    
+    lVC.delegate = lVC;
+    
+    self.window.rootViewController = lNav;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

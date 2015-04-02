@@ -40,18 +40,25 @@
 
 -(NSURL *) pdfURL {
     
+    NSURL * aURL = _pdfURL;
+    
     if (!self.pdfSanbox){
         
-        NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[self.pdfURL pathExtension]];
+        NSLog([aURL pathExtension]);
+        
+        
+        NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[aURL pathExtension]];
         
         self.pdfSanbox = YES;
         
-        _pdfURL = [self setAndGetURLFromSandboxWithExternalURL:self.pdfURL
-                                             andElementName:sPDF];
+        aURL = [self setAndGetURLFromSandboxWithExternalURL:aURL
+                                                andElementName:sPDF];
         
-        return _pdfURL;
+        _pdfURL = aURL;
         
-    } else return _pdfURL;
+        return aURL;
+        
+    } else return aURL;
 }
 
 

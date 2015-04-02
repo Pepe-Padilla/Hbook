@@ -9,8 +9,9 @@
 @import UIKit;
 
 @class MXWBook;
+#import "MXWLibraryTableViewController.h"
 
-@interface MXWBookViewController : UIViewController
+@interface MXWBookViewController : UIViewController <UISplitViewControllerDelegate,MXWLibraryTableViewControllerDelegate>
 
 @property (strong, nonatomic) MXWBook * book;
 @property (weak, nonatomic) IBOutlet UIImageView * photoBook;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel * tagsLabel;
 @property (weak, nonatomic) IBOutlet UIButton * pdfB;
 @property (weak, nonatomic) IBOutlet UISwitch * favoriteS;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView * activityView;
 
 
 -(IBAction)displayPDFBook:(id)sender;

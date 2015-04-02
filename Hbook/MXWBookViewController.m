@@ -8,6 +8,7 @@
 
 #import "MXWBookViewController.h"
 #import "MXWBook.h"
+#import "MXWPDFViewController.h"
 
 @interface MXWBookViewController ()
 
@@ -28,11 +29,23 @@
 }
 
 -(IBAction)displayPDFBook:(id)sender{
-    //Crear un PDFVC
-    //MXWPDFViewController * pVC = [[PDFWikiViewController alloc] initWithModel:self.model];
+    
+    [self.activityView setHidden:NO];
+    [self.activityView startAnimating];
+    
+    NSURL* aURL = self.book.pdfURL;
+    
+    NSLog([aURL path]);
+    
+    [self.activityView stopAnimating];
+    [self.activityView setHidden:YES];
+    
+    MXWPDFViewController * pdfVC = [[MXWPDFViewController alloc]
+                                    initWithBook:self.book];
     
     //Hacer un push
-    //[self.navigationController pushViewController:pVC animated:YES];
+    [self.navigationController pushViewController:pdfVC
+                                         animated:YES];
 }
 
 -(IBAction)toggleFavorite:(id)sender{
@@ -63,6 +76,9 @@
     [super viewWillAppear:animated];
     self.edgesForExtendedLayout= UIRectEdgeNone;
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    
+    [self.activityView stopAnimating];
+    [self.activityView setHidden:YES];
     
     self.titleLabel.text = self.book.title;
     self.authorsLabel.text = [NSString stringWithFormat:@"Authors: %@",[self.book.authors componentsJoinedByString:@", "]];
@@ -95,6 +111,20 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) splitViewController:(UISplitViewController *)svc
+    willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode{
+    
+    if (displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        // tabla oculta
+        self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem;
+    } else {
+        //Se muestra la tabla
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+
+    
 }
 
 @end
