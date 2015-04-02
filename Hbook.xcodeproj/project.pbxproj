@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B150EFDE1ACD6F6A00D18AAB /* blackpink.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EFDC1ACD6F6A00D18AAB /* blackpink.png */; };
+		B150EFDF1ACD6F6A00D18AAB /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EFDD1ACD6F6A00D18AAB /* wood.png */; };
 		B157E5D71ACB3C1F004E0E8C /* MXWBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B157E5D51ACB3C1F004E0E8C /* MXWBookViewController.m */; };
 		B157E5D81ACB3C1F004E0E8C /* MXWBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */; };
 		B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D91ACB4D48004E0E8C /* starOff.png */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B150EFDC1ACD6F6A00D18AAB /* blackpink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackpink.png; sourceTree = "<group>"; };
+		B150EFDD1ACD6F6A00D18AAB /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		B157E5D41ACB3C1F004E0E8C /* MXWBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWBookViewController.h; sourceTree = "<group>"; };
 		B157E5D51ACB3C1F004E0E8C /* MXWBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWBookViewController.m; sourceTree = "<group>"; };
 		B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXWBookViewController.xib; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 		B157E5DD1ACB4D52004E0E8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B150EFDC1ACD6F6A00D18AAB /* blackpink.png */,
+				B150EFDD1ACD6F6A00D18AAB /* wood.png */,
 				B157E5D91ACB4D48004E0E8C /* starOff.png */,
 				B157E5DA1ACB4D48004E0E8C /* starOn.png */,
 			);
@@ -252,6 +258,8 @@
 				B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */,
 				B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */,
 				B157E5DC1ACB4D48004E0E8C /* starOn.png in Resources */,
+				B150EFDE1ACD6F6A00D18AAB /* blackpink.png in Resources */,
+				B150EFDF1ACD6F6A00D18AAB /* wood.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

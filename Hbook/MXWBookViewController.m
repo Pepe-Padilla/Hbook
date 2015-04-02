@@ -35,18 +35,25 @@
     //[self.navigationController pushViewController:pVC animated:YES];
 }
 
--(IBAction)toggleyFavorite:(id)sender{
+-(IBAction)toggleFavorite:(id)sender{
     if (self.book.favorite) {
-        [self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
-                        forState:UIControlStateNormal];
+        //[self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
+        //                forState:UIControlStateNormal];
+        
+        [self.favoriteS setOn:NO animated:YES];
         
         self.book.favorite = NO;
         
-    } else {
-        [self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
-                        forState:UIControlStateNormal];
+        //NSLog(@"favorite yes to no on toggleFavorite");
         
+    } else {
+        //[self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
+        //                forState:UIControlStateNormal];
+        
+        [self.favoriteS setOn:YES animated:YES];
         self.book.favorite = YES;
+        
+        //NSLog(@"favorite no to yes on toggleFavorite");
     }
     
 }
@@ -66,13 +73,22 @@
     self.photoBook.image = anImage;
     
     if (self.book.favorite) {
-        [self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
-                        forState:UIControlStateNormal];
+        [self.favoriteS setOn:YES animated:NO];
+        
+        //NSLog(@"favorite yes on wiewWillApeer");
+        
+        //[self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
+        //                forState:UIControlStateNormal];
     } else {
-        [self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
-                        forState:UIControlStateNormal];
+        [self.favoriteS setOn:NO animated:NO];
+        
+        //NSLog(@"favorite no on wiewWillApeer");
+        //[self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
+        //                forState:UIControlStateNormal];
     }
     
+    UIImage *btnImage = [UIImage imageNamed:@"wood.png"];
+    [self.pdfB setImage:btnImage forState:UIControlStateNormal];
 }
 
 
