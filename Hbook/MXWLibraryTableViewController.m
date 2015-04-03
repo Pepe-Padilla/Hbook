@@ -12,7 +12,11 @@
 #import "MXWBookViewController.h"
 #import "Header.h"
 
+
+
 @interface MXWLibraryTableViewController ()
+
+@property (strong, nonatomic) MXWLibaryTableViewCell * lTVC;
 
 @end
 
@@ -26,6 +30,8 @@
     if (self = [super initWithStyle:style]) {
         _library = library;
         _tags = [library getTags];
+        _authors = [library getAuthors];
+        _lTVC  = [[MXWLibaryTableViewCell alloc] init];
         //self.title = @"Favorite / Tags";
     }
     
@@ -44,6 +50,17 @@
     [self.library orderFavorites];
     [self.tableView reloadData];
     
+    UINib *nib = [UINib nibWithNibName:[MXWLibaryTableViewCell cellID]
+                                bundle:[NSBundle mainBundle]];
+    
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:[MXWLibaryTableViewCell cellID]];
+    
+}
+
+- (CGFloat) tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 110;
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -74,102 +91,262 @@
 
 #pragma mark - Table view data source
 
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *) tableView:(UITableView *)tableView
+ titleForHeaderInSection:(NSInteger)section{
     
-    if (section == FAVORITE_SECTION) {
-        NSString * aint= [@([self.library countBooksForFavorites]) stringValue];
-        return [NSString stringWithFormat:@"Favorites (%@)",aint];
-    } else {
-        return [self.tags objectAtIndex:section-1];
+    if (section == SELECT_SECTION) {
+        return nil;
     }
     
+    if (self.lTVC.showFavorite) {
+        
+        if (section == FAVORITE_SECTION) {
+            NSString * aint= [@([self.library countBooksForFavorites]) stringValue];
+            return [NSString stringWithFormat:@"Favorites (%@)",aint];
+        } else {
+            if (self.lTVC.sectionSelected == SECTION_TITLES) {
+                return @"All Titles";
+            } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+                return [self.tags objectAtIndex:section-2];;
+            } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+                return [self.authors objectAtIndex:section-2];
+            }
+        }
+    } else {
+        if (self.lTVC.sectionSelected == SECTION_TITLES) {
+            return @"All Titles";
+        } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+            return [self.tags objectAtIndex:section-1];;
+        } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+            return [self.authors objectAtIndex:section-1];
+        }
+    }
+    
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return self.tags.count + 1;
+    
+    int slecS = 0;
+    
+    if (self.lTVC.sectionSelected == SECTION_TITLES) {
+        slecS = 1;
+    } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+        slecS = self.tags.count;
+    } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+        slecS = self.authors.count;
+    }
+    
+    if (self.lTVC.showFavorite) {
+        return slecS + 2;
+    } else {
+        return slecS + 1;
+    }
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    if (section == FAVORITE_SECTION) {
-        return [self.library countBooksForFavorites];
+    
+    if (section == SELECT_SECTION) {
+        return 1;
+    }
+    
+    if (self.lTVC.showFavorite) {
+        
+        if (section == FAVORITE_SECTION) {
+            return [self.library countBooksForFavorites];
+        } else {
+            if (self.lTVC.sectionSelected == SECTION_TITLES) {
+                return [self.library countBooksForTitles];
+            } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+                return [self.library countBooksForTags:[self.tags objectAtIndex:section-2]];
+            } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+                return [self.library countBooksForAuthors:[self.authors objectAtIndex:section-2]];
+            }
+            else return 0;
+        }
+    
     } else {
-        return [self.library countBooksForTags:[self.tags objectAtIndex:section-1]];
+    
+        if (self.lTVC.sectionSelected == SECTION_TITLES) {
+            return [self.library countBooksForTitles];
+        } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+            return [self.library countBooksForTags:[self.tags objectAtIndex:section-1]];
+        } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+            return [self.library countBooksForAuthors:[self.authors objectAtIndex:section-1]];
+        }
+        
+        else return 0;
     }
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MXWBook * aBook;
+    if (indexPath.section != SELECT_SECTION) {
     
-    if (indexPath.section == FAVORITE_SECTION) {
-        aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
-    } else {
-        aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 1]
-                                 AtIndex:indexPath.row];
+        MXWBook * aBook =nil;
+        if (self.lTVC.showFavorite) {
+            if (indexPath.section == FAVORITE_SECTION) {
+                aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
+            } else {
+                if (self.lTVC.sectionSelected == SECTION_TITLES) {
+                    aBook = [self.library bookForTitlesAtIndex:indexPath.row];
+                    
+                } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+                    aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 2]
+                                             AtIndex:indexPath.row];
+                } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+                    aBook = [self.library bookForAuthor:[self.authors objectAtIndex:indexPath.section - 2]
+                                                AtIndex:indexPath.row];
+                }
+            }
+        } else {
+            if (self.lTVC.sectionSelected == SECTION_TITLES) {
+                aBook = [self.library bookForTitlesAtIndex:indexPath.row];
+                
+            } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+                aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 1]
+                                         AtIndex:indexPath.row];
+            } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+                aBook = [self.library bookForAuthor:[self.authors objectAtIndex:indexPath.section - 1]
+                                            AtIndex:indexPath.row];
+            }
+        }
+        
+        /* obsoleto (ahora con delegados):
+         // crar el bookVC
+         //MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+         
+         //Hacer un push
+         //[self.navigationController pushViewController:bVC animated:YES];
+         */
+        
+        if (aBook) {
+            // Avisar al delegado
+            if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectBook:)]) {
+                [self.delegate libraryTableViewController:self
+                                            didSelectBook:aBook];
+            }
+            
+            // mandamos notificación
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            
+            NSDictionary * dict = @{BOOK_CHANGE : aBook};
+            
+            NSNotification * n = [NSNotification notificationWithName: BOOK_DID_CHANGE_NOTIFICATION
+                                                               object: self
+                                                             userInfo: dict];
+            [nc postNotification:n];
+        }
     }
     
-    /* obsoleto (ahora con delegados):
-    // crar el bookVC
-    //MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
+}
+
+- (id)defaultMangerWithNewValIfNotExist:(id)newVal
+                                 andKey:(NSString*)key{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    //Hacer un push
-    //[self.navigationController pushViewController:bVC animated:YES];
-    */
+    id anId=[defaults objectForKey:key];
     
-    
-    // Avisar al delegado
-    if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectBook:)]) {
-        [self.delegate libraryTableViewController:self
-                                    didSelectBook:aBook];
+    if (!anId) {
+        // Si no hay nada, lo añadimos
+        anId = newVal;
+        [defaults setObject:anId
+                     forKey:key];
+        [defaults synchronize];
     }
     
-    // mandamos notificación
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    
-    NSDictionary * dict = @{BOOK_CHANGE : aBook};
-    
-    NSNotification * n = [NSNotification notificationWithName: BOOK_DID_CHANGE_NOTIFICATION
-                                                       object: self
-                                                     userInfo: dict];
-    [nc postNotification:n];
-    
+    return anId;
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //Averiguar modelo
-    MXWBook * aBook = nil;
-    
-    if (indexPath.section == FAVORITE_SECTION) {
-        aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
+    MXWBook * aBook =nil;
+    if (indexPath.section == SELECT_SECTION) {
+        MXWLibaryTableViewCell * cell= [tableView
+                                        dequeueReusableCellWithIdentifier:[MXWLibaryTableViewCell cellID]
+                                                             forIndexPath:indexPath];
+        
+        NSString * sShowF = [self defaultMangerWithNewValIfNotExist:@"YES"
+                                                             andKey:@"showFavorite"];
+        
+        NSString * sSectSel = [self defaultMangerWithNewValIfNotExist:@"SECTION_TITLES"
+                                                               andKey:@"sectionSelected"];
+        
+        int aInt= 0;
+        
+        if ([sSectSel isEqual:@"SECTION_TITLES"]) {
+            aInt = SECTION_TITLES;
+        } else if ([sSectSel isEqual:@"SECTION_TAGS"]) {
+            aInt = SECTION_TAGS;
+        } if ([sSectSel isEqual:@"SECTION_AUTHORS"]) {
+            aInt = SECTION_AUTHORS;
+        }
+        
+        [cell startWithSection: [sShowF isEqual:@"YES"]
+                  showFavorite: aInt];
+        
+        
+        return cell;
+    }
+    else if (self.lTVC.showFavorite) {
+        if (indexPath.section == FAVORITE_SECTION) {
+            aBook = [self.library bookForFavoritesAtIndex:indexPath.row];
+        } else {
+            if (self.lTVC.sectionSelected == SECTION_TITLES) {
+                aBook = [self.library bookForTitlesAtIndex:indexPath.row];
+                
+            } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+                aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 2]
+                                         AtIndex:indexPath.row];
+            } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+                aBook = [self.library bookForAuthor:[self.authors objectAtIndex:indexPath.section - 2]
+                                            AtIndex:indexPath.row];
+            }
+        }
     } else {
-        aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section-1]
-                                 AtIndex:indexPath.row];
+        if (self.lTVC.sectionSelected == SECTION_TITLES) {
+            aBook = [self.library bookForTitlesAtIndex:indexPath.row];
+            
+        } else if (self.lTVC.sectionSelected == SECTION_TAGS) {
+            aBook = [self.library bookForTag:[self.tags objectAtIndex:indexPath.section - 1]
+                                     AtIndex:indexPath.row];
+        } else if (self.lTVC.sectionSelected == SECTION_AUTHORS) {
+            aBook = [self.library bookForAuthor:[self.authors objectAtIndex:indexPath.section - 1]
+                                        AtIndex:indexPath.row];
+        }
     }
     
-    //Crear celda
-    static NSString * cellID = @"HMXWLibary";
-    UITableViewCell * cell= [tableView dequeueReusableCellWithIdentifier:cellID];
     
-    if (cell == nil) {
-        // crear cell
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:cellID];
+    
+    if (aBook) {
+        //Crear celda
+        static NSString * cellID = @"HMXWLibary";
+        UITableViewCell * cell= [tableView dequeueReusableCellWithIdentifier:cellID];
+        
+        if (cell == nil) {
+            // crear cell
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                          reuseIdentifier:cellID];
+        }
+        
+        UIImage* imagen = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:aBook.coverURL]];
+        
+        //Configurar celda
+        cell.imageView.image = imagen;
+        cell.textLabel.text = aBook.title;
+        cell.detailTextLabel.text = [aBook.authors componentsJoinedByString:@", "];
+        
+        //Devolver la celda
+        return cell;
     }
     
-    UIImage* imagen = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:aBook.coverURL]];
-    
-    //Configurar celda
-    cell.imageView.image = imagen;
-    cell.textLabel.text = aBook.title;
-    cell.detailTextLabel.text = [aBook.authors componentsJoinedByString:@", "];
-    
-    //Devolver la celda
-    return cell;
+    return nil;
 }
 
 -(void) libraryTableViewController: (MXWLibraryTableViewController *) lVC
@@ -178,6 +355,13 @@
     MXWBookViewController * bVC = [[MXWBookViewController alloc] initWithBook:aBook];
     
     [self.navigationController pushViewController:bVC animated:YES];
+    
+}
+
+-(void) libraryCellViewController: (MXWLibaryTableViewCell *) lVC{
+    self.lTVC = lVC;
+    
+    [self.tableView reloadData];
     
 }
 

@@ -43,6 +43,8 @@
 		B157E5D81ACB3C1F004E0E8C /* MXWBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */; };
 		B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */ = {isa = PBXBuildFile; fileRef = B157E5D91ACB4D48004E0E8C /* starOff.png */; };
 		B157E5DC1ACB4D48004E0E8C /* starOn.png in Resources */ = {isa = PBXBuildFile; fileRef = B157E5DA1ACB4D48004E0E8C /* starOn.png */; };
+		B16729FC1ACEB0340086CC54 /* MXWLibaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B16729FA1ACEB0340086CC54 /* MXWLibaryTableViewCell.m */; };
+		B16729FD1ACEB0340086CC54 /* MXWLibaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B16729FB1ACEB0340086CC54 /* MXWLibaryTableViewCell.xib */; };
 		B17F238C1AC6D34C00984AF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238B1AC6D34C00984AF4 /* main.m */; };
 		B17F238F1AC6D34C00984AF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B17F238E1AC6D34C00984AF4 /* AppDelegate.m */; };
 		B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17F23961AC6D34C00984AF4 /* Images.xcassets */; };
@@ -126,6 +128,9 @@
 		B157E5D91ACB4D48004E0E8C /* starOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starOff.png; sourceTree = "<group>"; };
 		B157E5DA1ACB4D48004E0E8C /* starOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starOn.png; sourceTree = "<group>"; };
 		B166EE841AC9FC4C003CC67D /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		B16729F91ACEB0340086CC54 /* MXWLibaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWLibaryTableViewCell.h; sourceTree = "<group>"; };
+		B16729FA1ACEB0340086CC54 /* MXWLibaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWLibaryTableViewCell.m; sourceTree = "<group>"; };
+		B16729FB1ACEB0340086CC54 /* MXWLibaryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXWLibaryTableViewCell.xib; sourceTree = "<group>"; };
 		B17F23861AC6D34C00984AF4 /* Hbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17F238A1AC6D34C00984AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B17F238B1AC6D34C00984AF4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -250,6 +255,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		B16729FE1ACEB05B0086CC54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B16729F91ACEB0340086CC54 /* MXWLibaryTableViewCell.h */,
+				B16729FA1ACEB0340086CC54 /* MXWLibaryTableViewCell.m */,
+				B16729FB1ACEB0340086CC54 /* MXWLibaryTableViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		B17F237D1AC6D34C00984AF4 = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +353,7 @@
 				B157E5D61ACB3C1F004E0E8C /* MXWBookViewController.xib */,
 				B150F0341ACD7CD300D18AAB /* MXWPDFViewController.h */,
 				B150F0351ACD7CD300D18AAB /* MXWPDFViewController.m */,
+				B16729FE1ACEB05B0086CC54 /* Views */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -428,6 +444,7 @@
 				B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */,
 				B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */,
 				B157E5DC1ACB4D48004E0E8C /* starOn.png in Resources */,
+				B16729FD1ACEB0340086CC54 /* MXWLibaryTableViewCell.xib in Resources */,
 				B150EFDE1ACD6F6A00D18AAB /* blackpink.png in Resources */,
 				B150EFDF1ACD6F6A00D18AAB /* wood.png in Resources */,
 			);
@@ -477,6 +494,7 @@
 				B157E5D71ACB3C1F004E0E8C /* MXWBookViewController.m in Sources */,
 				B1981EED1AC86B4F004960DE /* MXWLibraryTableViewController.m in Sources */,
 				B150F0321ACD79B900D18AAB /* ThumbsViewController.m in Sources */,
+				B16729FC1ACEB0340086CC54 /* MXWLibaryTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
