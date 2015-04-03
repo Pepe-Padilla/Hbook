@@ -414,7 +414,7 @@
     return b;
 }
 
-- (void) orderFavoritesWith:(MXWBook*) aBook{
+- (void) orderFavorites{
     
     
     NSMutableDictionary *dTitles = [[NSMutableDictionary alloc] init];
@@ -424,9 +424,11 @@
         
         MXWBook * lBook = [self.books objectAtIndex:i];
         
-        if ([lBook isEqual:aBook]) {
-            [self.books replaceObjectAtIndex:i withObject:aBook];
-        }
+        [lBook updateFavorite];
+        
+        [self.books replaceObjectAtIndex:i
+                              withObject:lBook];
+        
         
     }
     

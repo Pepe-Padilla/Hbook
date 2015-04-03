@@ -34,6 +34,6 @@
 - (MXWBook*) bookForAuthor:(NSString*) author AtIndex:(NSUInteger) i;
 
 // para cambios en favoritos
-- (void) orderFavoritesWith:(MXWBook*) aBook;
+- (void) orderFavorites;
 
 @end

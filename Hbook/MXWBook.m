@@ -183,5 +183,11 @@
     
 }
 
+-(void) updateFavorite {
+    NSString * sfavorite= [self defaultMangerWithNewValIfNotExist:@"NO"
+                                                           andKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",self.title]];
+    
+    self.favorite = [sfavorite isEqualToString:@"YES"];
+}
 
 @end

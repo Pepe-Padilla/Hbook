@@ -9,29 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hbook/MXWLibraryTableViewController.m"
-            timestampString = "449713680.67653"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-notifyThatFBookDidChange:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Hbook/MXWLibrary.m"
-            timestampString = "449707403.598163"
+            timestampString = "449748817.125181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
-            landmarkName = "-orderFavoritesWith:"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
+            landmarkName = "-orderFavorites"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

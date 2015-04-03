@@ -26,7 +26,7 @@
     if (self = [super initWithStyle:style]) {
         _library = library;
         _tags = [library getTags];
-        self.title = @"Favorite / Tags";
+        //self.title = @"Favorite / Tags";
     }
     
     return self;
@@ -41,12 +41,9 @@
                name:FBOOK_DID_CHANGE_NOTIFICATION
              object:nil];
     
-}
-
-- (void) presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
-    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
-    
+    [self.library orderFavorites];
     [self.tableView reloadData];
+    
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -68,7 +65,7 @@
     
     if (aBook) {
         
-        [self.library orderFavoritesWith:aBook];
+        [self.library orderFavorites];
         
         [self.tableView reloadData];
     

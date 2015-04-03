@@ -35,4 +35,6 @@
 
 - (BOOL) isEqual:(id)object;
 
+- (void) updateFavorite;
+
 @end
