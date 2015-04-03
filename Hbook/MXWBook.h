@@ -26,9 +26,13 @@
              authors: (NSArray*) authors
                 tags: (NSArray*) tags
             coverURL: (NSURL*) coverURL
-              pdfURL: (NSURL*) pdfURL
-            favorite: (BOOL) favorite;
+              pdfURL: (NSURL*) pdfURL;
 
 - (void) manageURLS;
+- (void) managePdfURL;
+- (void) markBookAsFavorite;
+- (void) markBookAsNotFavorite;
+
+- (BOOL) isEqual:(id)object;
 
 @end

@@ -10,6 +10,7 @@
 #import "MXWLibrary.h"
 #import "MXWBook.h"
 #import "MXWBookViewController.h"
+#import "Header.h"
 
 @interface MXWLibraryTableViewController ()
 
@@ -31,10 +32,47 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter ];
+    [nc addObserver:self
+           selector:@selector(notifyThatFBookDidChange:)
+               name:FBOOK_DID_CHANGE_NOTIFICATION
+             object:nil];
+    
+}
+
+- (void) presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+    
+    [self.tableView reloadData];
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Notifications
+//FBOOK_DID_CHANGE_NOTIFICATION
+-(void)notifyThatFBookDidChange:(NSNotification*) notification{
+    //sacamos el personaje
+    MXWBook * aBook = [notification.userInfo objectForKey:BOOK_FAVORITE];
+    
+    if (aBook) {
+        
+        [self.library orderFavoritesWith:aBook];
+        
+        [self.tableView reloadData];
+    
+    }
 }
 
 #pragma mark - Table view data source
@@ -90,6 +128,16 @@
         [self.delegate libraryTableViewController:self
                                     didSelectBook:aBook];
     }
+    
+    // mandamos notificación
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    NSDictionary * dict = @{BOOK_CHANGE : aBook};
+    
+    NSNotification * n = [NSNotification notificationWithName: BOOK_DID_CHANGE_NOTIFICATION
+                                                       object: self
+                                                     userInfo: dict];
+    [nc postNotification:n];
     
 }
 

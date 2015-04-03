@@ -14,7 +14,8 @@
 
 @interface MXWPDFViewController : UIViewController <ReaderViewControllerDelegate>
 
-@property (strong,nonatomic) MXWBook * book;
+@property (strong, nonatomic) MXWBook * book;
+@property (strong, nonatomic) ReaderViewController *readerViewController;
 
 
 -(id) initWithBook:(MXWBook *) aBook;

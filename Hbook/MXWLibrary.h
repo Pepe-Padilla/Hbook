@@ -33,8 +33,7 @@
 - (MXWBook*) bookForTag:(NSString*) tag AtIndex:(NSUInteger) i;
 - (MXWBook*) bookForAuthor:(NSString*) author AtIndex:(NSUInteger) i;
 
-// functions to set favorites
-- (void) markBookAsFavoriteWithBook: (MXWBook*) book;
-- (void) markBookAsNotFavoriteWithBook: (MXWBook*) book;
+// para cambios en favoritos
+- (void) orderFavoritesWith:(MXWBook*) aBook;
 
 @end

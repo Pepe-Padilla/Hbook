@@ -8,6 +8,7 @@
 
 #import "MXWPDFViewController.h"
 #import "MXWBook.h"
+#import "Header.h"
 
 
 @interface MXWPDFViewController ()
@@ -21,6 +22,7 @@
     if (self = [super initWithNibName:nil bundle:nil]) {
         _book = aBook;
         _addPDF = YES;
+        _readerViewController = nil;
     }
     return self;
 }
@@ -36,8 +38,39 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Notifications
+//BOOK_DID_CHANGE_NOTIFICATION
+-(void)notifyThatFBookDidChange:(NSNotification*) notification{
+    //sacamos el personaje
+    MXWBook * aBook = [notification.userInfo objectForKey:BOOK_CHANGE];
+    
+    if (aBook) {
+        
+        if (aBook.pdfSanbox) {
+            self.book = aBook;
+            
+            [super dismissViewControllerAnimated: YES completion:nil];
+            
+        } else {
+            
+            [super dismissViewControllerAnimated: YES completion:nil];
+            self.addPDF = NO;
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+        
+    }
+}
+
+
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter ];
+    [nc addObserver:self
+           selector:@selector(notifyThatFBookDidChange:)
+               name:BOOK_DID_CHANGE_NOTIFICATION
+             object:nil];
     
     if (self.addPDF) {
     
@@ -47,20 +80,28 @@
         
         if (document != nil)
         {
-            ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
-            readerViewController.delegate = self;
+            self.readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
+            self.readerViewController.delegate = self;
             
-            readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+            self.readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            self.readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+            //self.readerViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
             
-            //[self presentModalViewController:readerViewController animated:YES];
-            [self presentViewController:readerViewController animated:YES completion:nil];
+            //[self presentModalViewController:self.readerViewController animated:YES];
+            [self presentViewController:self.readerViewController animated:YES completion:nil];
         }
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
     
 }
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 -(void) dismissReaderViewController:(ReaderViewController *)viewController{
     [super dismissViewControllerAnimated: YES completion:nil];
@@ -78,5 +119,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

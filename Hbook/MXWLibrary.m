@@ -212,25 +212,10 @@
     return aDate;
 }
 
-- (id)defaultMangerWithUserDefaults:(NSUserDefaults*) defaults
-                andNewValIfNotExist:(id)newVal
-                             andKey:(NSString*)key{
-    
-    id anId=[defaults objectForKey:key];
-    
-    if (!anId) {
-        // Si no hay nada, lo añadimos
-        anId = newVal;
-        [defaults setObject:anId
-                     forKey:key];
-        [defaults synchronize];
-    }
-    
-    return anId;
-}
+
 
 - (NSString*) getFromRepositoryWithError:(NSError**)error{
-    NSURL * urlJ=[NSURL URLWithString:@REPO_URL];
+    NSURL * urlJ=[NSURL URLWithString:REPO_URL];
     NSError *err= nil;
     NSString * strJson= [NSString stringWithContentsOfURL:urlJ
                                                  encoding:NSUTF8StringEncoding
@@ -321,23 +306,15 @@
     //NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:pdfURL
     //                                                    andElementName:[NSString stringWithFormat:@"MXWbook_pdf_%@.%@",title,[pdfURL pathExtension]]];
     
-    BOOL favorite = NO;
-    
     NSArray * aAuthors = [authors componentsSeparatedByString:@", "];
     NSArray * aTags = [tags componentsSeparatedByString:@", "];
     
-    NSString * sfavorite= [self defaultMangerWithUserDefaults:defaults
-                                          andNewValIfNotExist:@"NO"
-                                                       andKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",title]];
-    
-    favorite = [sfavorite isEqualToString:@"YES"];
-    
+        
     MXWBook * book = [[MXWBook alloc] initWithTitle:title
                                             authors:aAuthors
                                                tags:aTags
                                            coverURL:coverURL
-                                             pdfURL:pdfURL
-                                           favorite:favorite];
+                                             pdfURL:pdfURL];
     [book manageURLS];
     
     [self.books addObject:book];
@@ -437,40 +414,23 @@
     return b;
 }
 
-
-#pragma mark - set Favorite functions
-// functions to set favorites
-- (void) markBookAsFavoriteWithBook: (MXWBook*) book{
-    if (!book.favorite){
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:@"YES"
-                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",book.title]];
-        [defaults synchronize];
-        
-        book.favorite = YES;
-    }
+- (void) orderFavoritesWith:(MXWBook*) aBook{
     
-    [self orderFavorites];
-}
-
-- (void) markBookAsNotFavoriteWithBook: (MXWBook*) book{
-    if (book.favorite){
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:@"NO"
-                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",book.title]];
-        [defaults synchronize];
-        
-        book.favorite = NO;
-    }
     
-    [self orderFavorites];
-}
-
-- (void) orderFavorites{
-    NSMutableDictionary *dTitles = nil;
+    NSMutableDictionary *dTitles = [[NSMutableDictionary alloc] init];
+    
     for (int i = 0; i<self.books.count; i++) {
         [dTitles addEntriesFromDictionary:@{[[self.books objectAtIndex:i] title]:@(i)}];
+        
+        MXWBook * lBook = [self.books objectAtIndex:i];
+        
+        if ([lBook isEqual:aBook]) {
+            [self.books replaceObjectAtIndex:i withObject:aBook];
+        }
+        
     }
+    
+    [self.favorites removeAllObjects];
     
     for (id element in self.oTitles) {
         long j = [[dTitles objectForKey:element] longValue];

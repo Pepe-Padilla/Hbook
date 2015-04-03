@@ -33,9 +33,7 @@
     [self.activityView setHidden:NO];
     [self.activityView startAnimating];
     
-    NSURL* aURL = self.book.pdfURL;
-    
-    NSLog([aURL path]);
+    [self.book managePdfURL];
     
     [self.activityView stopAnimating];
     [self.activityView setHidden:YES];
@@ -50,23 +48,10 @@
 
 -(IBAction)toggleFavorite:(id)sender{
     if (self.book.favorite) {
-        //[self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
-        //                forState:UIControlStateNormal];
-        
-        [self.favoriteS setOn:NO animated:YES];
-        
-        self.book.favorite = NO;
-        
-        //NSLog(@"favorite yes to no on toggleFavorite");
+        [self.book markBookAsNotFavorite];
         
     } else {
-        //[self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
-        //                forState:UIControlStateNormal];
-        
-        [self.favoriteS setOn:YES animated:YES];
-        self.book.favorite = YES;
-        
-        //NSLog(@"favorite no to yes on toggleFavorite");
+        [self.book markBookAsFavorite];
     }
     
 }
@@ -77,34 +62,7 @@
     self.edgesForExtendedLayout= UIRectEdgeNone;
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     
-    [self.activityView stopAnimating];
-    [self.activityView setHidden:YES];
-    
-    self.titleLabel.text = self.book.title;
-    self.authorsLabel.text = [NSString stringWithFormat:@"Authors: %@",[self.book.authors componentsJoinedByString:@", "]];
-    self.tagsLabel.text = [NSString stringWithFormat:@"Book Tags: %@",[self.book.tags componentsJoinedByString:@", "]];
-    
-    
-    UIImage * anImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.book.coverURL]];
-    self.photoBook.image = anImage;
-    
-    if (self.book.favorite) {
-        [self.favoriteS setOn:YES animated:NO];
-        
-        //NSLog(@"favorite yes on wiewWillApeer");
-        
-        //[self.favoriteB setImage:[UIImage imageNamed:@"starOn.png"]
-        //                forState:UIControlStateNormal];
-    } else {
-        [self.favoriteS setOn:NO animated:NO];
-        
-        //NSLog(@"favorite no on wiewWillApeer");
-        //[self.favoriteB setImage:[UIImage imageNamed:@"starOff.png"]
-        //                forState:UIControlStateNormal];
-    }
-    
-    UIImage *btnImage = [UIImage imageNamed:@"wood.png"];
-    [self.pdfB setImage:btnImage forState:UIControlStateNormal];
+    [self manageBook];
 }
 
 
@@ -125,6 +83,44 @@
     }
 
     
+}
+
+-(void) libraryTableViewController:(MXWLibraryTableViewController *)lVC
+                     didSelectBook:(MXWBook *)aBook{
+    
+    self.book = aBook;
+    
+    [self manageBook];
+    
+}
+
+-(void) manageBook{
+    self.title = self.book.title;
+    
+    [self.activityView stopAnimating];
+    [self.activityView setHidden:YES];
+    
+    self.titleLabel.text = self.book.title;
+    self.authorsLabel.text = [NSString stringWithFormat:@"Authors: %@",[self.book.authors componentsJoinedByString:@", "]];
+    self.tagsLabel.text = [NSString stringWithFormat:@"Book Tags: %@",[self.book.tags componentsJoinedByString:@", "]];
+    
+    
+    UIImage * anImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.book.coverURL]];
+    self.photoBook.image = anImage;
+    
+    
+    if (self.book.favorite) {
+        [self.favoriteS setOn:YES animated:NO];
+        
+    } else {
+        [self.favoriteS setOn:NO animated:NO];
+        
+    }
+    
+    if (!self.book.pdfSanbox)
+        self.pdfB.backgroundColor = [UIColor colorWithRed:222.0/255.0 green:184.0/255.0 blue:135.0/255.0 alpha:0.2];
+    else
+        self.pdfB.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0];
 }
 
 @end

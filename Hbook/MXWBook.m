@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 maxeiware. All rights reserved.
 //
 
+@import UIKit;
 #import "MXWBook.h"
+#import "Header.h"
 
 @interface MXWBook ()
 
@@ -21,8 +23,7 @@
              authors: (NSArray*) authors
                 tags: (NSArray*) tags
             coverURL: (NSURL*) coverURL
-              pdfURL: (NSURL*) pdfURL
-            favorite: (BOOL)favorite{
+              pdfURL: (NSURL*) pdfURL{
     
     if (self = [super init]) {
         _title = title;
@@ -30,35 +31,23 @@
         _tags = tags;
         _coverURL = coverURL;
         _pdfURL = pdfURL;
-        _favorite = favorite;
         _pdfSanbox = NO;
+        _favorite = NO;
         
     }
     
     return self;
 }
 
--(NSURL *) pdfURL {
+-(void) managePdfURL {
     
-    NSURL * aURL = _pdfURL;
+    NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[self.pdfURL pathExtension]];
     
-    if (!self.pdfSanbox){
-        
-        NSLog([aURL pathExtension]);
-        
-        
-        NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[aURL pathExtension]];
-        
-        self.pdfSanbox = YES;
-        
-        aURL = [self setAndGetURLFromSandboxWithExternalURL:aURL
+    self.pdfSanbox = YES;
+    
+    self.pdfURL = [self setAndGetURLFromSandboxWithExternalURL:self.pdfURL
                                                 andElementName:sPDF];
-        
-        _pdfURL = aURL;
-        
-        return aURL;
-        
-    } else return aURL;
+    
 }
 
 
@@ -67,15 +56,20 @@
     NSString * titledash = [self.title stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     
     NSString * sCover = [NSString stringWithFormat:@"MXWbook_cover_%@.%@",titledash,[self.coverURL pathExtension]];
-    //NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[self.pdfURL pathExtension]];
+    
+    NSString * sPDF = [NSString stringWithFormat:@"MXWbook_pdf_%@.%@",self.title,[self.pdfURL pathExtension]];
     
     NSURL * localCoverURL =[self setAndGetURLFromSandboxWithExternalURL:self.coverURL
                                                          andElementName:sCover];
     
-    //NSURL * localPdfURL = [self setAndGetURLFromSandboxWithExternalURL:self.pdfURL
-    //                                                    andElementName:sPDF];
-    
     self.coverURL = localCoverURL;
+    
+    self.pdfSanbox = [self isInSandbowWithElementName:sPDF];
+    
+    NSString * sfavorite= [self defaultMangerWithNewValIfNotExist:@"NO"
+                           andKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",self.title]];
+    
+    self.favorite = [sfavorite isEqualToString:@"YES"];
     
 }
 
@@ -101,5 +95,93 @@
     
     return urlF;
 }
+
+-(BOOL) isInSandbowWithElementName:(NSString*)element {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSArray * fmURL = [fm URLsForDirectory: NSCachesDirectory
+                                 inDomains: NSUserDomainMask];
+    
+    NSURL * urlF = [fmURL lastObject];
+    
+    urlF = [urlF URLByAppendingPathComponent:element];
+    
+    return  [fm fileExistsAtPath:[urlF path]];
+}
+
+- (id)defaultMangerWithNewValIfNotExist:(id)newVal
+                             andKey:(NSString*)key{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    id anId=[defaults objectForKey:key];
+    
+    if (!anId) {
+        // Si no hay nada, lo añadimos
+        anId = newVal;
+        [defaults setObject:anId
+                     forKey:key];
+        [defaults synchronize];
+    }
+    
+    return anId;
+}
+
+#pragma mark - set Favorite functions
+// functions to set favorites
+- (void) markBookAsFavorite{
+    if (!self.favorite){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"YES"
+                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",self.title]];
+        [defaults synchronize];
+        
+        self.favorite = YES;
+        
+        // mandamos una notificación
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
+        NSDictionary * dict = @{BOOK_FAVORITE : self};
+        
+        NSNotification * n = [NSNotification notificationWithName: FBOOK_DID_CHANGE_NOTIFICATION
+                                                           object: self
+                                                         userInfo: dict];
+        [nc postNotification:n];
+    }
+}
+
+- (void) markBookAsNotFavorite{
+    if (self.favorite){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"NO"
+                     forKey:[NSString stringWithFormat:@"MXWbook_favorite_%@",self.title]];
+        [defaults synchronize];
+        
+        self .favorite = NO;
+        
+        // mandamos una notificación
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
+        NSDictionary * dict = @{BOOK_FAVORITE : self};
+        
+        NSNotification * n = [NSNotification notificationWithName: FBOOK_DID_CHANGE_NOTIFICATION
+                                                           object: self
+                                                         userInfo: dict];
+        [nc postNotification:n];
+    }
+}
+
+
+- (BOOL) isEqual:(id)object{
+    if ([object isKindOfClass:[MXWBook class]]) {
+        
+        MXWBook * oBook = object;
+        
+        return ([self.title isEqual:oBook.title] && [self.authors isEqual:oBook.authors]);
+    }
+    
+    return NO;
+    
+}
+
 
 @end
