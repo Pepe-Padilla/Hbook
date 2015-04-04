@@ -16,13 +16,12 @@
     self.sectionSelected = section;
     self.showFavorite = showF;
     
-    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
-    
     if (self.showFavorite)
-        [self.fButton setTitle:@"Hide Favorite" forState:UIControlStateNormal];
+        [self.fButton setTitle:@"Hide Favorites" forState:UIControlStateNormal];
     else
-        [self.fButton setTitle:@"Show Favorite" forState:UIControlStateNormal];
+        [self.fButton setTitle:@"Show Favorites" forState:UIControlStateNormal];
     
+    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
 }
 
 + (NSString*) cellID{
@@ -49,11 +48,6 @@
                  forKey:@"sectionSelected"];
     [defaults synchronize];
     
-    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
-    if (self.showFavorite)
-        self.fButton.titleLabel.text =@"Hide Favorite";
-    else
-        self.fButton.titleLabel.text =@"Show Favorite";
     
 }
 
@@ -80,12 +74,6 @@
         [self.delegate libraryCellViewController:self];
     }
     
-    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
-
-    if (self.showFavorite)
-        self.fButton.titleLabel.text =@"Hide Favorite";
-    else
-        self.fButton.titleLabel.text =@"Show Favorite";
 }
 
 - (void)awakeFromNib {
