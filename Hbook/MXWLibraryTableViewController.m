@@ -303,24 +303,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                                         dequeueReusableCellWithIdentifier:[MXWLibaryTableViewCell cellID]
                                                              forIndexPath:indexPath];
         
-        NSString * sShowF = [self defaultMangerWithNewValIfNotExist:@"YES"
-                                                             andKey:@"showFavorite"];
-        
-        NSString * sSectSel = [self defaultMangerWithNewValIfNotExist:@"SECTION_TITLES"
-                                                               andKey:@"sectionSelected"];
-        
-        int aInt= 0;
-        
-        if ([sSectSel isEqual:@"SECTION_TITLES"]) {
-            aInt = SECTION_TITLES;
-        } else if ([sSectSel isEqual:@"SECTION_TAGS"]) {
-            aInt = SECTION_TAGS;
-        } if ([sSectSel isEqual:@"SECTION_AUTHORS"]) {
-            aInt = SECTION_AUTHORS;
-        }
-        
-        [cell startWithSection: [sShowF isEqual:@"YES"]
-                  showFavorite: aInt];
+        [cell startWithSection: self.lTVC.sectionSelected
+                  showFavorite: self.lTVC.showFavorite];
         
         
         return cell;
