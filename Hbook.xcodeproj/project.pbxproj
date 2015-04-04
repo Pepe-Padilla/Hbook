@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B10824171AD01BF00073C0ED /* downloadIc.png in Resources */ = {isa = PBXBuildFile; fileRef = B10824161AD01BF00073C0ED /* downloadIc.png */; };
 		B150EFDE1ACD6F6A00D18AAB /* blackpink.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EFDC1ACD6F6A00D18AAB /* blackpink.png */; };
 		B150EFDF1ACD6F6A00D18AAB /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EFDD1ACD6F6A00D18AAB /* wood.png */; };
 		B150EFE11ACD78E600D18AAB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B150EFE01ACD78E600D18AAB /* MessageUI.framework */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B10824161AD01BF00073C0ED /* downloadIc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloadIc.png; sourceTree = "<group>"; };
 		B150EFDC1ACD6F6A00D18AAB /* blackpink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackpink.png; sourceTree = "<group>"; };
 		B150EFDD1ACD6F6A00D18AAB /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		B150EFE01ACD78E600D18AAB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -247,6 +249,7 @@
 		B157E5DD1ACB4D52004E0E8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B10824161AD01BF00073C0ED /* downloadIc.png */,
 				B150EFDC1ACD6F6A00D18AAB /* blackpink.png */,
 				B150EFDD1ACD6F6A00D18AAB /* wood.png */,
 				B157E5D91ACB4D48004E0E8C /* starOff.png */,
@@ -440,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B17F239A1AC6D34C00984AF4 /* LaunchScreen.xib in Resources */,
+				B10824171AD01BF00073C0ED /* downloadIc.png in Resources */,
 				B157E5D81ACB3C1F004E0E8C /* MXWBookViewController.xib in Resources */,
 				B17F23971AC6D34C00984AF4 /* Images.xcassets in Resources */,
 				B157E5DB1ACB4D48004E0E8C /* starOff.png in Resources */,

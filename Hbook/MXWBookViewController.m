@@ -117,10 +117,14 @@
         
     }
     
-    if (!self.book.pdfSanbox)
-        self.pdfB.backgroundColor = [UIColor colorWithRed:222.0/255.0 green:184.0/255.0 blue:135.0/255.0 alpha:0.2];
-    else
-        self.pdfB.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0];
+    if (!self.book.pdfSanbox) {
+        UIImage * btnImage = [UIImage imageNamed:@"downloadIc.png"];
+        [self.pdfB setImage:btnImage forState:UIControlStateNormal];
+    }
+    else {
+        UIImage * btnImage = [UIImage imageNamed:@"wood.png"];
+        [self.pdfB setImage:btnImage forState:UIControlStateNormal];
+    }
 }
 
 @end
