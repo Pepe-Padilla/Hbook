@@ -2,10 +2,10 @@
 
 **Hbook** it's a proyect made for a study practice for the *AGBO - KEEPCODING MASTER BOOTCAMP*
 
-**Hbook** is a simple books manager. Gets its book catalog from a JSON from a server, and
-storage in local cache, updated at least once per day.
+**Hbook** is a simple books manager. Gets its book catalog from a JSON file from a server, and
+storage it in local cache, updated at least once per day.
 
-Al the pictures and PDFs are storage in local Cache once needed.
+All the pictures and PDFs are storage in local Cache once needed.
 
 The next step of this proyect is to download on background the files and don't get the
 aplication stoped.
