@@ -48,13 +48,16 @@
                  forKey:@"sectionSelected"];
     [defaults synchronize];
     
-}
-
-- (IBAction)displayFavorite:(id)sender {
+    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
     if (self.showFavorite)
         self.fButton.titleLabel.text =@"Hide Favorite";
     else
         self.fButton.titleLabel.text =@"Show Favorite";
+    
+}
+
+- (IBAction)displayFavorite:(id)sender {
+    
     
     self.showFavorite = !self.showFavorite;
     
@@ -62,8 +65,13 @@
     if ([self.delegate respondsToSelector:@selector(libraryCellViewController:)]) {
         [self.delegate libraryCellViewController:self];
     }
-
     
+    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
+
+    if (self.showFavorite)
+        self.fButton.titleLabel.text =@"Hide Favorite";
+    else
+        self.fButton.titleLabel.text =@"Show Favorite";
 }
 
 - (void)awakeFromNib {
