@@ -290,8 +290,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         aInt = SECTION_AUTHORS;
     }
     
-    [self.lTVC startWithSection: [sShowF isEqual:@"YES"]
-              showFavorite: aInt];
+    [self.lTVC startWithSection: aInt
+                   showFavorite: [sShowF isEqual:@"YES"]];
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView

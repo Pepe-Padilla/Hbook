@@ -22,6 +22,7 @@
         self.fButton.titleLabel.text =@"Hide Favorite";
     else
         self.fButton.titleLabel.text =@"Show Favorite";
+    
 }
 
 + (NSString*) cellID{
@@ -61,6 +62,19 @@
     
     self.showFavorite = !self.showFavorite;
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString * valForDef = nil;
+    
+    if (self.showFavorite) {
+        valForDef = @"YES";
+    } else {
+        valForDef = @"NO";
+    }
+    
+    [defaults setObject:valForDef
+                 forKey:@"showFavorite"];
+    [defaults synchronize];
+    
     // Avisar al delegado -(void) libraryCellViewController: (MXWLibaryTableViewCell *) lVC;
     if ([self.delegate respondsToSelector:@selector(libraryCellViewController:)]) {
         [self.delegate libraryCellViewController:self];
@@ -82,6 +96,8 @@
         self.fButton.titleLabel.text =@"Hide Favorite";
     else
         self.fButton.titleLabel.text =@"Show Favorite";
+    
+    [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
     
 }
 
