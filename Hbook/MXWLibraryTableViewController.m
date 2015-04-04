@@ -58,6 +58,8 @@
     [self.tableView registerNib:nib
          forCellReuseIdentifier:[MXWLibaryTableViewCell cellID]];
     
+    [self manageLibraryCell];
+    
 }
 
 
@@ -269,6 +271,27 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     
     return anId;
+}
+
+- (void) manageLibraryCell{
+    NSString * sShowF = [self defaultMangerWithNewValIfNotExist:@"YES"
+                                                         andKey:@"showFavorite"];
+    
+    NSString * sSectSel = [self defaultMangerWithNewValIfNotExist:@"SECTION_TITLES"
+                                                           andKey:@"sectionSelected"];
+    
+    int aInt= 0;
+    
+    if ([sSectSel isEqual:@"SECTION_TITLES"]) {
+        aInt = SECTION_TITLES;
+    } else if ([sSectSel isEqual:@"SECTION_TAGS"]) {
+        aInt = SECTION_TAGS;
+    } if ([sSectSel isEqual:@"SECTION_AUTHORS"]) {
+        aInt = SECTION_AUTHORS;
+    }
+    
+    [self.lTVC startWithSection: [sShowF isEqual:@"YES"]
+              showFavorite: aInt];
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView
