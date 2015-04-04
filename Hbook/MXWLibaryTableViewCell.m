@@ -19,9 +19,9 @@
     [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
     
     if (self.showFavorite)
-        self.fButton.titleLabel.text =@"Hide Favorite";
+        [self.fButton setTitle:@"Hide Favorite" forState:UIControlStateNormal];
     else
-        self.fButton.titleLabel.text =@"Show Favorite";
+        [self.fButton setTitle:@"Show Favorite" forState:UIControlStateNormal];
     
 }
 
@@ -93,9 +93,9 @@
     [super awakeFromNib];
     
     if (self.showFavorite)
-        self.fButton.titleLabel.text =@"Hide Favorite";
+        [self.fButton setTitle:@"Hide Favorites" forState:UIControlStateNormal];
     else
-        self.fButton.titleLabel.text =@"Show Favorite";
+        [self.fButton setTitle:@"Show Favorites" forState:UIControlStateNormal];
     
     [self.sectionSC  setSelectedSegmentIndex:self.sectionSelected];
     
