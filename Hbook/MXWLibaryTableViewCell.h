@@ -33,7 +33,7 @@
             showFavorite: (BOOL) showF;
 
 - (IBAction)displaySegment:(UISegmentedControl *)sender;
-- (IBAction)displayFaborite:(id)sender;
+- (IBAction)displayFavorite:(id)sender;
 
 + (NSString*) cellID;
 

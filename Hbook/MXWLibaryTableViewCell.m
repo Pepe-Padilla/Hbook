@@ -50,7 +50,7 @@
     
 }
 
-- (IBAction)displayFaborite:(id)sender {
+- (IBAction)displayFavorite:(id)sender {
     if (self.showFavorite)
         self.fButton.titleLabel.text =@"Hide Favorite";
     else
