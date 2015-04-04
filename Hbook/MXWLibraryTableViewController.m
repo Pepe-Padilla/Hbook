@@ -23,6 +23,7 @@
 @implementation MXWLibraryTableViewController
 
 
+#pragma mark - inits
 // sobre escribios el inicializador por defecto
 - (id) initWithLibray:(MXWLibrary*) library
                 style:(UITableViewStyle) style{
@@ -38,6 +39,7 @@
     return self;
 }
 
+#pragma mark - View life
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -58,10 +60,7 @@
     
 }
 
-- (CGFloat) tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 110;
-}
+
 
 - (void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -90,6 +89,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - Table view data source
+- (CGFloat) tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == SELECT_SECTION)
+        return 110;
+    else
+        return [super tableView:tableView
+        heightForRowAtIndexPath:indexPath];
+}
+
 
 - (NSString *) tableView:(UITableView *)tableView
  titleForHeaderInSection:(NSInteger)section{
