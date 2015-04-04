@@ -34,7 +34,7 @@
                         </segments>
                         <color key="tintColor" red="0.30500315656565657" green="0.17894231054030241" blue="0.17659486922233023" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
-                            <action selector="displaySegment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ltt-yX-zDd"/>
+                            <action selector="displaySegment:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Blm-za-hbL"/>
                         </connections>
                     </segmentedControl>
                 </subviews>
