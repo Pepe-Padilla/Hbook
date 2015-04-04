@@ -13,6 +13,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xr5-rC-Lma">
+                        <rect key="frame" x="317" y="3" width="443" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Show/Hide Favorites">
+                            <color key="titleColor" red="0.30500315656565657" green="0.17894231054030241" blue="0.17659486922233023" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="displayFavorite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aJd-sE-cNN"/>
+                        </connections>
+                    </button>
                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="m0p-oj-1Xl">
                         <rect key="frame" x="0.0" y="61" width="768" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -26,17 +37,6 @@
                             <action selector="displaySegment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ltt-yX-zDd"/>
                         </connections>
                     </segmentedControl>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xr5-rC-Lma">
-                        <rect key="frame" x="317" y="3" width="443" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Show/Hide Favorites">
-                            <color key="titleColor" red="0.30500315656565657" green="0.17894231054030241" blue="0.17659486922233023" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="displayFavorite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aJd-sE-cNN"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.95239504419191912" green="0.95239504419191912" blue="0.95239504419191912" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>

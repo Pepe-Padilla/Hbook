@@ -49,6 +49,11 @@
     [defaults synchronize];
     
     
+    // Avisar al delegado -(void) libraryCellViewController: (MXWLibaryTableViewCell *) lVC;
+    if ([self.delegate respondsToSelector:@selector(libraryCellViewController:)]) {
+        [self.delegate libraryCellViewController:self];
+    }
+    
 }
 
 - (IBAction)displayFavorite:(id)sender {
