@@ -27,9 +27,9 @@
                         </connections>
                     </segmentedControl>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xr5-rC-Lma">
-                        <rect key="frame" x="395" y="8" width="365" height="21"/>
+                        <rect key="frame" x="317" y="3" width="443" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Show Favorite">
+                        <state key="normal" title="Show/Hide Favorites">
                             <color key="titleColor" red="0.30500315656565657" green="0.17894231054030241" blue="0.17659486922233023" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
