@@ -306,6 +306,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [cell startWithSection: self.lTVC.sectionSelected
                   showFavorite: self.lTVC.showFavorite];
         
+        cell.delegate=self;
         
         return cell;
     }
