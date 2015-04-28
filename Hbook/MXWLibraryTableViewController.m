@@ -303,6 +303,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                                         dequeueReusableCellWithIdentifier:[MXWLibaryTableViewCell cellID]
                                                              forIndexPath:indexPath];
         
+        //if (cell == nil){
+        //    cell = [[MXWLibaryTableViewCell alloc] initWithStyle:<#(UITableViewCellStyle)#> reuseIdentifier:<#(NSString *)#>];
+        //}
+        
         [cell startWithSection: self.lTVC.sectionSelected
                   showFavorite: self.lTVC.showFavorite];
         
