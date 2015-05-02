@@ -33,6 +33,11 @@
         _tags = [library getTags];
         _authors = [library getAuthors];
         _lTVC  = [[MXWLibaryTableViewCell alloc] init];
+        UINib *nib = [UINib nibWithNibName:[MXWLibaryTableViewCell cellID]
+                                    bundle:[NSBundle mainBundle]];
+        
+        [self.tableView registerNib:nib
+             forCellReuseIdentifier:[MXWLibaryTableViewCell cellID]];
         //self.title = @"Favorite / Tags";
     }
     

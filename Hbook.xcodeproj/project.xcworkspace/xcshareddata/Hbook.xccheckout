@@ -12,18 +12,34 @@
 	<dict>
 		<key>31C043FEA1A84DEFAD916DBF8CCD0DF713FFA2F7</key>
 		<string>https://github.com/vfr/Reader.git</string>
+		<key>E1D9B5687EC7178165E4BB2B6FCC05182846420A</key>
+		<string>https://github.com/Pepe-Padilla/Hbook.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Hbook.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>31C043FEA1A84DEFAD916DBF8CCD0DF713FFA2F7</key>
-		<string>../../../../KeepCodingMaster/FunadmentosiOS/Reader</string>
+		<string>../../../KeepCodingMaster/FunadmentosiOS/Reader</string>
+		<key>E1D9B5687EC7178165E4BB2B6FCC05182846420A</key>
+		<string>../..</string>
 	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Pepe-Padilla/Hbook.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E1D9B5687EC7178165E4BB2B6FCC05182846420A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E1D9B5687EC7178165E4BB2B6FCC05182846420A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Hbook</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
